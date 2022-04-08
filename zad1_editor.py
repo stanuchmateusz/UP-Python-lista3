@@ -1,12 +1,12 @@
-from zad1_authorization_system import *
+import zad1_authorization_system
 
 
-auth = Authenticator()
+auth = zad1_authorization_system.Authenticator()
 
 auth.add_user("admin", "12345678")
 auth.add_user("user", "87654321")
 
-authorizor = Authorizor(auth)
+authorizor = zad1_authorization_system.Authorizor(auth)
 authorizor.add_permission("change")
 authorizor.add_permission("test")
 
@@ -27,15 +27,15 @@ class Editor:
             password = input("Podaj haslo: ")
             auth.login(username, password)
             self.username = username
-        except AuthenticException as e:
+        except zad1_authorization_system.AuthenticException as e:
             print(e)
 
     def is_permitted(self, permission):
         try:
             authorizor.check_permission(self.username, permission)
-        except NotLoggedError as e:
+        except zad1_authorization_system.NotLoggedError as e:
             print(e)
-        except NotPermitted as e:
+        except zad1_authorization_system.NotPermitted as e:
             print(e)
 
     def test(self):
